@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [data])
 
   return (
     <Router>
@@ -33,7 +33,7 @@ const App = () => {
         : 
           <Routes>
             <Route path="/" element={<Home data={data} />} />
-            <Route path="/create" element={<InputCreate url={urlApi} fetchData={fetchData} />} />
+            <Route path="/create" element={<InputCreate url={urlApi} />} />
            
             {data.map(item => (
               <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />

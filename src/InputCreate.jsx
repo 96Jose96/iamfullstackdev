@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export default function InputCreate({ url, fetchData }) {
     const [newTask, setNewTask] = useState('')
     const [taskCreated, setTaskCreated] = useState(null)
 
-    const handleInput = (e) => {
-        setNewTask(e.target.value)
-    }
-
     const handleCreateTask = async () => {
         try {
+
+             //Con Axios
+            // const response = await axios.post(urlApiCreate, payload)
+            // setCreatedtask(`Success', ${response.data.title}`)
+            // setTitle('')
+
             const response = await fetch(`${url}/create`, {
                 method:'POST',
                 headers: {
@@ -22,7 +24,6 @@ export default function InputCreate({ url, fetchData }) {
                 const createdTask = await response.json()
                 setTaskCreated(createdTask)
                 setNewTask('')
-                fetchData()
             }
         } catch (error) {
             console.error(error)
@@ -37,7 +38,7 @@ export default function InputCreate({ url, fetchData }) {
         onChange={handleInput}
         placeholder="Indica nueva tarea"
       />
-      <button onClick={handleCreateTask}>Crear</button>
+      <button onClick={(e) => setNewTask(e.target.value)}>Crear</button>
 
       <p>{taskCreated && `Tarea creada: ${taskCreated.title}`}</p>
     </>
